@@ -5,7 +5,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "dev": "node --loader node/ts src/index.ts",
+    "dev": "ts-node --esm backend/src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -26,4 +26,6 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   }
+
+  
 }
