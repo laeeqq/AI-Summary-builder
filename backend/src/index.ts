@@ -7,6 +7,8 @@
 
 import express from "express";
 
+
+
 // Important: include `.ts` extension if you use allowImportingTsExtensions
 import assignmentRoutes from "./routes/assignment.ts";  
 
@@ -14,6 +16,17 @@ import assignmentRoutes from "./routes/assignment.ts";
 // import fileUpload from "express-fileupload";
 
 const app = express();
+
+import { fileURLToPath } from "url";
+import { dirname, join } from "path";
+
+// Recreate __dirname for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+app.use(express.static(join(__dirname, "../../frontend")));
+
+
 
 // Middleware to parse JSON bodies
 app.use(express.json());
