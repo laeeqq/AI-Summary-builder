@@ -1,12 +1,27 @@
+//  npx ts-node --esm backend/src/index.ts
+//http://localhost:3000
+
+
+// Starts the web Server 
+// COnfiguring how the API behaves
+//sets up the routes (basically our main like in other languages)
+
+// backend/src/index.ts
 import express from "express";
 
+// Important: include `.ts` extension if you use allowImportingTsExtensions
+import assignmentRoutes from "./routes/assignment.ts";  
+
+import fileUpload from "express-fileupload";
+
 const app = express();
-const port = 3000;
 
-app.get("/", (req, res) => {
-  res.send("Hello, Smart Study Assistant!");
-});
+app.use(express.json());
+app.use(fileUpload());
 
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+// Mount the assignment router
+app.use("/assignments", assignmentRoutes);
+
+app.listen(3000, () => {
+  console.log("Server listening on http://localhost:3000");
 });
