@@ -24,6 +24,14 @@ import { dirname, join } from "path";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+import dotenv from "dotenv";
+dotenv.config();
+
+const apiKey = process.env.GROK_API_KEY;
+console.log("My Grok API Key:", apiKey); // just for testing, remove later
+
+
+
 app.use(express.static(join(__dirname, "../../frontend")));
 
 

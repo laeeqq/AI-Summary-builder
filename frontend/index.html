@@ -17,6 +17,43 @@
   <pre id="response"></pre>
 
   <!-- Link to JavaScript logic -->
-  <script src="app.js"></script>
+  <script>
+    const fileInput = document.getElementById("assignmentFIle");
+    const uploadBtn = document.getElementById("uploadBtn");
+    const statusDiv = document.getElementById("status");
+
+    uploadBtn.addEventListener("click", async () => {
+    // Step 1: Check if a file is selected
+    if (!fileInput.files.length) {
+      statusDiv.innerText = "Please select a file first!";
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("assignment", fileInput.files[0]); // "assignment" must match backend
+
+    try {
+      // Step 3: Send POST request to backend
+      const response = await fetch("/assignments/upload", {
+        method: "POST",
+        body: formData
+      });
+
+      // Step 4: Parse JSON response
+      const data = await response.json();
+
+      // Step 5: Show result to user
+      if (response.ok) {
+        statusDiv.innerText = `Success! File uploaded: ${data.file.originalname}`;
+      } else {
+        statusDiv.innerText = `Upload failed: ${data.error}`;
+      }
+    } catch (err) {
+      // Step 6: Handle network or other errors
+      statusDiv.innerText = `Error: ${err.message}`;
+    }
+  });
+
+  </script>
 </body>
 </html>
